@@ -519,10 +519,9 @@ body.celebrating .flags-container {
     width: 100%;
     max-width: 100%;
     text-align: center;
-    word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: normal;
-    hyphens: auto;
+    hyphens: none;
 }
 
 /* SIGNATURE AREA */

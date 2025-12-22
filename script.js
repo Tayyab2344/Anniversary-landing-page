@@ -76,7 +76,7 @@ const texts = {
   title: "Happy\u00A032nd\u00A0Wedding\u00A0Anniversary",
   names: "Mama\u00A0aur\u00A0Papa",
   blessing:
-    "Allah aap dono ko hamesha khush aur sehatmand rakhe. Aap dono ki jodi hamesha salamat rahe. Ameen! ❤️",
+    "May Allah always keep you both happy and healthy. May your bond remain blessed forever. 32 years of love, laughter, and togetherness. You are our greatest inspiration! Ameen! ❤️",
 };
 
 let typewriterStarted = false;
@@ -114,10 +114,7 @@ function typeWriter(element, text, callback) {
   function type() {
     if (i < text.length) {
       const char = text.charAt(i);
-      // Convert spaces to &nbsp; to preserve them in HTML
-      if (char === " ") {
-        displayText += "&nbsp;";
-      } else if (char === "\n") {
+      if (char === "\n") {
         displayText += "<br>";
       } else {
         displayText += char;

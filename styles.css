@@ -599,6 +599,11 @@ body.celebrating .flags-container {
         letter-spacing: 2px;
     }
 
+    .message-header {
+        font-size: 18px;
+        margin-bottom: 2px;
+    }
+
     .message-names {
         font-size: 32px;
         margin-bottom: 15px;

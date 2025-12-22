@@ -73,8 +73,8 @@ const signatureArea = document.querySelector(".signature-area");
 
 // TEXT CONTENT
 const texts = {
-  title: "Happy\u00A032nd\u00A0Wedding\u00A0Anniversary",
-  names: "Mama\u00A0aur\u00A0Papa",
+  title: "Happy 32nd Wedding Anniversary",
+  names: "Mama aur Papa",
   blessing:
     "May Allah always keep you both happy and healthy. May your bond remain blessed forever. 32 years of love and togetherness. Ameen! ❤️",
 };

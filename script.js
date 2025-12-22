@@ -76,7 +76,7 @@ const texts = {
   title: "Happy\u00A032nd\u00A0Wedding\u00A0Anniversary",
   names: "Mama\u00A0aur\u00A0Papa",
   blessing:
-    "May Allah always keep you both happy and healthy. May your bond remain blessed forever. 32 years of love, laughter, and togetherness. You are our greatest inspiration! Ameen! ❤️",
+    "May Allah always keep you both happy and healthy. May your bond remain blessed forever. 32 years of love and togetherness. Ameen! ❤️",
 };
 
 let typewriterStarted = false;

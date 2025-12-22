@@ -52,8 +52,8 @@ function playAudio() {
 function fireConfetti() {
   const colors = ["#C5A065", "#E5CDA2", "#D4A5A5", "#8A9A7B", "#C4797A"];
   for (let i = 0; i < 150; i++) {
-    const x = window.innerWidth / 2;
-    const y = window.innerHeight / 2;
+    const x = Math.random() * window.innerWidth;
+    const y = -20; // Start just above the top
     particles.push(
       new Particle(
         x,
@@ -161,15 +161,16 @@ class Particle {
     if (isExplosion) {
       this.x = startX;
       this.y = startY;
-      this.size = Math.random() * 5 + 2;
-      const angle = Math.random() * Math.PI * 2;
-      const velocity = Math.random() * 15 + 2;
+      this.size = Math.random() * 4 + 2;
+      // Angle points mostly downwards (PI/4 to 3PI/4)
+      const angle = (Math.random() * Math.PI) / 2 + Math.PI / 4;
+      const velocity = Math.random() * 6 + 2; // Reduced velocity for slower movement
       this.speedX = Math.cos(angle) * velocity;
       this.speedY = Math.sin(angle) * velocity;
-      this.gravity = 0.5;
-      this.drag = 0.96;
+      this.gravity = 0.15; // Lower gravity for slower fall
+      this.drag = 0.98; // Less drag
       this.opacity = 1;
-      this.fadeSpeed = 0.01;
+      this.fadeSpeed = 0.005; // Fades out slower
       this.color = color;
       this.isExplosion = true;
     } else {

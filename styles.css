@@ -1,0 +1,646 @@
+/* ============================================
+   PREMIUM ANNIVERSARY WEBSITE - 3D PHYSICS ENGINE
+   ============================================ */
+
+:root {
+    --gold-primary: #C5A065;
+    --gold-light: #E5CDA2;
+    --gold-dark: #9E7E44;
+    --cream-base: #FDFBF8;
+    --text-dark: #2C241B;
+    --text-medium: #5D4D38;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Outfit', sans-serif;
+    background: #FDFBF8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 1.5s ease;
+}
+
+/* ============================================
+   PREMIUM OVERLAYS (ULTRA LUXURY)
+   ============================================ */
+/* Film Grain Texture */
+.film-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* Golden Dust Particles */
+#gold-dust {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Audio Player */
+audio {
+    display: none;
+}
+
+/* ============================================
+   BACKGROUND LAYERS (& SPOTLIGHT MODE)
+   ============================================ */
+/* Festive Elements - Visible Immediately (Full Party Mode) */
+.balloons-layer,
+.flags-container {
+    opacity: 1;
+    transition: opacity 2s ease;
+    pointer-events: none;
+}
+
+/* Background - Visible Immediately */
+.bg-pattern,
+.bg-glow {
+    opacity: 1;
+    transition: opacity 2s ease;
+}
+
+/* Reveal State for Festive Elements (Redundant but harmless) */
+body.celebrating .balloons-layer {
+    opacity: 1;
+}
+
+body.celebrating .flags-container {
+    opacity: 1;
+}
+
+.bg-pattern {
+    position: fixed;
+    inset: -20px;
+    background-image: url('room-bg.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    z-index: 0;
+}
+
+.bg-glow {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(rgba(253, 244, 227, 0.6), rgba(253, 244, 227, 0.5));
+    backdrop-filter: contrast(1.1);
+    z-index: 1;
+}
+
+/* CINEMA SPOTLIGHT ANIMATION */
+body.spotlight-mode .bg-pattern {
+    filter: blur(8px) brightness(0.4);
+    transition: filter 1.5s ease;
+}
+
+body.spotlight-mode .bg-glow {
+    opacity: 0.2;
+    transition: opacity 1.5s ease;
+}
+
+body.spotlight-mode .balloons-layer,
+body.spotlight-mode .flags-container {
+    opacity: 0.6;
+    transition: opacity 1.5s ease;
+}
+
+
+/* Balloon & Flag Styles */
+/* Premium Cloth Physics for Flags */
+.flags-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 120px;
+    z-index: 2;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.bunting-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.flag {
+    transform-origin: top center;
+    animation: luxuryWave 6s ease-in-out infinite alternate;
+}
+
+/* Staggered Animation for Realism */
+.flag:nth-child(odd) {
+    animation-duration: 5.5s;
+    animation-delay: -1s;
+}
+
+.flag:nth-child(2n) {
+    animation-duration: 6.2s;
+    animation-delay: -2.5s;
+}
+
+.flag:nth-child(3n) {
+    animation-duration: 7s;
+    animation-delay: -0.5s;
+}
+
+@keyframes luxuryWave {
+    0% {
+        transform: rotate(-4deg) skewX(2deg) translateY(0);
+    }
+
+    50% {
+        transform: rotate(2deg) skewX(-1deg) translateY(3px);
+    }
+
+    100% {
+        transform: rotate(-3deg) skewX(0deg) translateY(1px);
+    }
+}
+
+.balloons-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+}
+
+.balloon {
+    position: absolute;
+    bottom: -150px;
+    left: var(--x);
+    width: var(--size);
+    height: calc(var(--size)*1.2);
+    background: var(--color);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    animation: floatUp 20s linear infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes floatUp {
+    100% {
+        transform: translateY(-120vh);
+    }
+}
+
+.elegant-border {
+    position: fixed;
+    inset: 15px;
+    border: 2px solid rgba(197, 160, 101, 0.3);
+    border-radius: 20px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* ============================================
+   3D CARD ARCHITECTURE
+   ============================================ */
+/* Entry Animation: Royal Float Up */
+@keyframes cardFloatIn {
+    0% {
+        transform: translateY(80px) scale(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.card-scene {
+    position: relative;
+    z-index: 10;
+    perspective: 2500px;
+    /* Deep perspective */
+    width: 400px;
+    height: 550px;
+
+    /* Simulate the 'Hand Presentation' moment */
+    opacity: 0;
+    /* Hidden initially */
+    animation: cardFloatIn 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+    /* Wait a beat after load */
+}
+
+.card-object {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.6s ease;
+    /* SLOWED DOWN (Was 0.8s) */
+}
+
+.card-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- BASE LAYER (Message) --- */
+.card-base {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+
+    /* PREMIUM PAPER TEXTURE */
+    background-color: #FFFCF9;
+    background-image:
+        radial-gradient(rgba(197, 160, 101, 0.1) 1px, transparent 1px),
+        /* Gold Specks */
+        linear-gradient(to bottom right, #fff, #f8f1e5);
+    background-size: 20px 20px, 100% 100%;
+    border-left: 5px solid rgba(0, 0, 0, 0.05);
+    /* Spine Depth */
+}
+
+/* ORNATE FRAME - Gold Double Border + CORNER FLOURISHES */
+.ornate-frame {
+    position: absolute;
+    inset: 12px;
+    border: 3px double var(--gold-primary);
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0.6;
+
+    /* CORNER FLOURISHES (SVG) */
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' fill='none' stroke='%23C5A065' stroke-width='2'%3E%3Cpath d='M2,2 L15,2 Q30,2 30,15 L30,20' /%3E%3Cpath d='M2,2 L2,15 Q2,30 15,30 L20,30' /%3E%3Ccircle cx='5' cy='5' r='2' fill='%23C5A065' /%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' fill='none' stroke='%23C5A065' stroke-width='2'%3E%3Cpath d='M48,2 L35,2 Q20,2 20,15 L20,20' /%3E%3Cpath d='M48,2 L48,15 Q48,30 35,30 L30,30' /%3E%3Ccircle cx='45' cy='5' r='2' fill='%23C5A065' /%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' fill='none' stroke='%23C5A065' stroke-width='2'%3E%3Cpath d='M2,48 L15,48 Q30,48 30,35 L30,30' /%3E%3Cpath d='M2,48 L2,35 Q2,20 15,20 L20,20' /%3E%3Ccircle cx='5' cy='45' r='2' fill='%23C5A065' /%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 50' fill='none' stroke='%23C5A065' stroke-width='2'%3E%3Cpath d='M48,48 L35,48 Q20,48 20,35 L20,30' /%3E%3Cpath d='M48,48 L48,35 Q48,20 35,20 L30,20' /%3E%3Ccircle cx='45' cy='45' r='2' fill='%23C5A065' /%3E%3C/svg%3E");
+
+    background-position: top left, top right, bottom left, bottom right;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+}
+
+/* --- FLAP ASSEMBLY (Cover + Photo) --- */
+.card-flap {
+    z-index: 2;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    /* DEFAULT: Book Mode */
+    transition: transform 2.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* SLOWED DOWN (Was 1.2s) */
+    background: transparent;
+    box-shadow: none;
+    /* Container only */
+    cursor: pointer;
+}
+
+.flap-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #FFFCF9;
+    /* Paper Texture for ALL faces */
+    background-image: radial-gradient(rgba(197, 160, 101, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    overflow: hidden;
+}
+
+/* FLAP FRONT (Cover) */
+.flap-front {
+    z-index: 2;
+    border: 1px solid rgba(197, 160, 101, 0.1);
+}
+
+/* FLAP BACK (Photo) */
+.flap-back {
+    z-index: 1;
+    transform: rotateY(180deg);
+    /* Faces backwards initially */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* === INTERACTION (Desktop Default) === */
+.card-object.opened .card-flap {
+    transform: rotateY(-180deg);
+    /* Open Book to Left */
+}
+
+/* Move the whole card slightly right when opened to center the spread */
+.card-scene:hover .card-object:not(.opened) .card-flap {
+    transform: rotateY(-15deg);
+    /* Subtle peek */
+}
+
+.card-object.opened {
+    transform: translateX(200px);
+    /* Shift right to center the open 800px spread */
+}
+
+
+/* ============================================
+   CONTENT STYLING (WITH GLOSSY SHEEN)
+   ============================================ */
+/* Cover Content */
+.cover-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.anniversary-badge {
+    width: 180px;
+    height: 180px;
+    border: 2px solid var(--gold-primary);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: pulse 3s infinite;
+    background: rgba(255, 255, 255, 0.5);
+    /* Slight fill behind text */
+    backdrop-filter: blur(2px);
+}
+
+@keyframes pulse {
+    50% {
+        box-shadow: 0 0 0 10px rgba(197, 160, 101, 0);
+    }
+}
+
+.anniversary-num {
+    font-family: 'Great Vibes';
+    font-size: 80px;
+    color: var(--gold-dark);
+    line-height: 1;
+}
+
+.anniversary-label {
+    font-family: 'Cormorant Garamond';
+    letter-spacing: 3px;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-top: 5px;
+    text-align: center;
+    /* FIXED: Centered Alignment */
+}
+
+.click-hint {
+    margin-top: 30px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--gold-dark);
+    opacity: 0.7;
+    text-align: center;
+}
+
+/* Photo Styling & SHEEN */
+.photo-mat {
+    background: #fff;
+    padding: 10px 10px 40px 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: rotate(2deg);
+    width: 100%;
+    max-width: 280px;
+    position: relative;
+    z-index: 10;
+}
+
+/* GLOSSY SHEEN WRAPPER - NEEDS .photo-wrapper HTML */
+.photo-wrapper {
+    position: relative;
+    width: 100%;
+    /* No overflow hidden here to allow image shadow? No, overflow hidden needed for sheen cut */
+    overflow: hidden;
+}
+
+.photo-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: glossySheen 6s infinite;
+    pointer-events: none;
+    z-index: 11;
+}
+
+@keyframes glossySheen {
+
+    0%,
+    40% {
+        left: -150%;
+    }
+
+    /* Wait period */
+    50% {
+        left: 150%;
+    }
+
+    /* Zooom across */
+    100% {
+        left: 150%;
+    }
+}
+
+.parent-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+}
+
+/* Message Styling */
+.message-header {
+    font-family: 'Cormorant Garamond';
+    font-size: 32px;
+    color: var(--text-dark);
+    white-space: pre-wrap;
+    word-spacing: 4px;
+    /* Enhanced Spacing */
+    min-height: 40px;
+    display: inline-block;
+    max-width: 100%;
+    /* FIXED */
+    overflow-wrap: break-word;
+    /* FIXED */
+}
+
+.message-names {
+    font-family: 'Great Vibes';
+    font-size: 48px;
+    color: var(--gold-primary);
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    word-spacing: 6px;
+    /* Enhanced Spacing */
+    min-height: 60px;
+    display: inline-block;
+    max-width: 100%;
+    /* FIXED */
+    overflow-wrap: break-word;
+    /* FIXED */
+}
+
+.golden-line {
+    width: 80px;
+    height: 2px;
+    background: var(--gold-primary);
+    margin: 0 auto 20px;
+    opacity: 0.5;
+}
+
+.message-blessing {
+    font-family: 'Outfit';
+    color: var(--text-medium);
+    margin-bottom: 25px;
+    line-height: 1.6;
+    padding: 0 5px;
+    /* Reduced Padding */
+    white-space: pre-wrap;
+    word-spacing: 2px;
+    min-height: 60px;
+    display: inline-block;
+    max-width: 100%;
+    /* FIXED */
+    overflow-wrap: break-word;
+    /* FIXED */
+}
+
+/* SIGNATURE AREA (Hidden initially for reveal) */
+.signature-area {
+    margin-top: 30px;
+    opacity: 0;
+    transition: opacity 2.5s ease;
+    /* Slow fade in */
+}
+
+.signature-area.visible {
+    opacity: 1;
+}
+
+.with-love {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    color: #8C7B66;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.hearts-row {
+    color: #C4797A;
+    letter-spacing: 5px;
+    font-size: 20px;
+}
+
+
+/* ============================================
+   MOBILE PHYSICS (BOOK MODE ADAPTED)
+   ============================================ */
+@media (max-width: 800px) {
+    .card-scene {
+        width: 300px;
+        /* Narrower width for mobile */
+        height: 420px;
+    }
+
+    /* Ensure Flap uses Desktop Logic (Left Origin) */
+    .card-flap {
+        transform-origin: left center;
+    }
+
+    /* Ensure Back uses Desktop Logic (Rotate Y) */
+    .flap-back {
+        transform: rotateY(180deg);
+    }
+
+    /* MOBILE OPEN STATE: Shift & Scale to fit Double Width */
+    .card-object.opened {
+        /* Shift spine to center (85px) and scale down (0.55) */
+        transform: translateX(85px) scale(0.55);
+    }
+
+    /* Open Animation: Flip LEFT (Same as Desktop) */
+    .card-object.opened .card-flap {
+        transform: rotateY(-180deg);
+    }
+
+    /* Adjust Hover Peek for Mobile (Touch simulation) */
+    .card-scene:hover .card-object:not(.opened) .card-flap {
+        transform: rotateY(-15deg);
+    }
+
+    /* Adjust Content Sizes for Mobile Scale */
+    .photo-mat {
+        width: 220px;
+        padding: 10px 10px 30px 10px;
+    }
+
+    /* Optimized Mobile Typography */
+    .anniversary-badge {
+        width: 140px;
+        height: 140px;
+        padding: 10px;
+        /* More breathing room */
+    }
+
+    .anniversary-num {
+        font-size: 56px;
+        /* Slightly smaller */
+    }
+
+    .anniversary-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+        /* Prevent wrap */
+    }
+
+    .message-names {
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    /* Slightly Smaller */
+    .message-blessing {
+        font-size: 15px;
+        /* Clean Readable Size */
+        padding-left: 15px;
+        padding-right: 15px;
+        /* Improved Indentation */
+        line-height: 1.5;
+    }
+
+    .click-hint {
+        margin-top: 20px;
+    }
+}

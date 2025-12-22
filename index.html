@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 32nd Anniversary</title>
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
+
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Great+Vibes&family=Outfit:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- ULTRA PREMIUM OVERLAYS -->
+    <div class="film-grain"></div>
+    <div class="elegant-border"></div>
+    <canvas id="gold-dust"></canvas>
+
+    <!-- Audio (Autoplay handling in script) -->
+    <audio id="bgMusic" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-piano-reflections-299.mp3" type="audio/mp3">
+    </audio>
+
+    <!-- BACKGROUND LAYERS -->
+    <div class="bg-pattern"></div>
+    <div class="bg-glow"></div>
+
+    <!-- FESTIVE ELEMENTS -->
+    <div class="balloons-layer">
+        <!-- Decoration Balloons -->
+        <div class="balloon" style="--color: #C5A065; --x: 10%; --size: 80px; --delay: 0s;"></div>
+        <div class="balloon" style="--color: #E5CDA2; --x: 25%; --size: 60px; --delay: 5s;"></div>
+        <div class="balloon" style="--color: #D4A5A5; --x: 75%; --size: 90px; --delay: 2s;"></div>
+        <div class="balloon" style="--color: #C5A065; --x: 85%; --size: 70px; --delay: 8s;"></div>
+    </div>
+
+    <div class="flags-container">
+        <!-- SVG Bunting with Cloth Physics -->
+        <svg class="bunting-svg" viewBox="0 0 1000 120" preserveAspectRatio="none">
+            <!-- Cord -->
+            <path d="M0,20 Q500,100 1000,20" fill="none" stroke="#8C7B66" stroke-width="2" />
+
+            <!-- Flags (Triangle & Rounded) -->
+            <g class="flag" transform="translate(100, 45)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#C4797A" />
+            </g>
+            <g class="flag" transform="translate(200, 58)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#8A9A7B" />
+            </g>
+            <g class="flag" transform="translate(300, 68)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#6B8E9B" />
+            </g>
+            <g class="flag" transform="translate(450, 75)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#E5CDA2" />
+            </g>
+            <g class="flag" transform="translate(600, 68)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#C4797A" />
+            </g>
+            <g class="flag" transform="translate(750, 50)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#8A9A7B" />
+            </g>
+            <g class="flag" transform="translate(850, 40)">
+                <path d="M0,0 L30,60 L60,0 Z" fill="#6B8E9B" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- 3D CARD SCENE -->
+    <div class="card-scene" id="greetingCard">
+        <div class="card-object">
+
+            <!-- BASE LAYER (Message - Right Side) -->
+            <div class="card-layer card-base">
+                <div class="ornate-frame"></div>
+                <!-- Content Area -->
+                <div class="message-container">
+                    <h2 class="message-title message-header">Happy Anniversary</h2> <!-- Placeholder -->
+                    <h1 class="message-names">Mama & Papa</h1>
+                    <div class="golden-line"></div>
+                    <p class="message-blessing">May your love continue to grow...</p>
+
+                    <div class="signature-area">
+                        <div class="with-love">With all our love</div>
+                        <div class="hearts-row">❤️❤️❤️</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOVING FLAP: COVER (Front) + PHOTO (Back) -->
+            <div class="card-layer card-flap">
+                <div class="flap-face flap-front">
+                    <div class="ornate-frame"></div>
+                    <div class="cover-content">
+                        <div class="anniversary-badge">
+                            <span class="anniversary-num">32</span>
+                            <span class="anniversary-label">Years of Love</span>
+                        </div>
+                        <div class="click-hint">Click to Open</div>
+                    </div>
+                </div>
+                <div class="flap-face flap-back">
+                    <div class="ornate-frame"></div>
+                    <div class="photo-container">
+                        <div class="photo-mat">
+                            <!-- GLOSSY SHEEN WRAPPER -->
+                            <div class="photo-wrapper">
+                                <img src="uploaded_image_1766417716569.png" alt="Happy Anniversary"
+                                    class="parent-photo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
